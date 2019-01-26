@@ -2,14 +2,17 @@ package com.example.demo;
 
 import java.util.List;
 
+import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 
-public interface IncidentDAO extends MongoRepository<Incident, Integer>{
+public interface IncidentDAO extends MongoRepository<Incident, ObjectId>{
 
+	@Query(value="{'_id' : {'$oid' : '5c4c534adcc03ef2249d4c72'}}", fields="{_id: 1}")
+	List<String> findLala();
 	
-	@Query("{ 'ZIP' : 60629 }")
-	List<Incident> findByBy();
+	@Query("{'_id' : {'$oid' : '5c4b667cdcc03ef2241bf82e'}}, {_id:1}")
+	Object findTest();
 	
 	List<Incident> findByCommunityArea(Integer communityArea);
 	

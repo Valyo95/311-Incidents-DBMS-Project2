@@ -8,12 +8,12 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
-@Document(collection="incidents")
+@Document(collection="testo")
 public class Incident implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	private ObjectId id;
+	private String id;
 
 	@Field("SERVICE REQUEST NUMBER")
 	private String srn;
@@ -127,7 +127,7 @@ public class Incident implements Serializable {
 
 
 
-	public Incident(ObjectId id, String srn, String status, String type, String streetAddress, String zipCode,
+	public Incident(String id, String srn, String status, String type, String streetAddress, String zipCode,
 			Double xCoordinate, Double yCoordinate, Integer ward, Integer policeDistrict, Integer communityArea,
 			Double latitude, Double longitude, String location, String createdAt, String completionDate,
 			String licensePlate, String model, String color, String currentActivity, String mostRecentAction,
@@ -164,6 +164,26 @@ public class Incident implements Serializable {
 		this.premisesWithGarbage = premisesWithGarbage;
 		this.premisesWithRats = premisesWithRats;
 		this.natureOfViolation = natureOfViolation;
+		this.upvotes = 0;
+	}
+
+	@Field("upvotes")
+	private int upvotes;
+
+
+
+
+
+	public int getUpvotes() {
+		return upvotes;
+	}
+
+
+
+
+
+	public void setUpvotes(int upvotes) {
+		this.upvotes = upvotes;
 	}
 
 
@@ -179,7 +199,7 @@ public class Incident implements Serializable {
 
 
 
-	public ObjectId getId() {
+	public String getId() {
 		return id;
 	}
 
@@ -187,7 +207,7 @@ public class Incident implements Serializable {
 
 
 
-	public void setId(ObjectId id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 

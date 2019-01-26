@@ -17,6 +17,8 @@ import org.springframework.data.mongodb.core.aggregation.AggregationResults;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.stereotype.Service;
 
+import com.github.javafaker.Faker;
+
 @Service
 public class IncidentImpl {
 
