@@ -1,5 +1,6 @@
 package com.example.demo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.bson.types.ObjectId;
@@ -24,7 +25,18 @@ public class IncidentEndpoint {
 	public Incident Ids(@PathVariable("id") String id) {
 		return inDao.findById(id).orElse(null);
 	}
-
+	
+	@RequestMapping(value = "/getRandom/{count}", method = RequestMethod.GET, headers = "Accept=application/json", produces = "application/json")
+	public List<Incident> getRandom(@PathVariable("count") long count){
+		List<Incident> l = new ArrayList<Incident>();
+		
+		for (int i=0; i<count; i++) {
+			l.add(service.getNextRandomIncident());
+		}
+		
+		return l;
+	}
+	
 	@RequestMapping(value = "/first", method = RequestMethod.GET, headers = "Accept=application/json", produces = "application/json")
 	public List<Object> first(@RequestParam("start") String start, @RequestParam("end") String end) {
 		return service.first(start, end);

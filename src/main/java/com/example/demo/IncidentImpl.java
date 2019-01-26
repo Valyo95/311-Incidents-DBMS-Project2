@@ -5,8 +5,11 @@ import static org.springframework.data.mongodb.core.aggregation.Aggregation.matc
 import static org.springframework.data.mongodb.core.aggregation.Aggregation.newAggregation;
 import static org.springframework.data.mongodb.core.aggregation.Aggregation.project;
 import static org.springframework.data.mongodb.core.aggregation.Aggregation.sort;
+import static org.springframework.data.mongodb.core.aggregation.Aggregation.limit;
+import static org.springframework.data.mongodb.core.aggregation.Aggregation.skip;
 
 import java.util.List;
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -24,6 +27,9 @@ public class IncidentImpl {
 
 	@Autowired
 	MongoTemplate mongoTemplate;
+	
+	private static long tempIncidentCount = -1;
+	public static Random randomGen = new Random();
 
 	public List<Object> first(String start, String end) {
 		System.out.println("start date: " + start);
@@ -38,6 +44,26 @@ public class IncidentImpl {
 
 		List<Object> result = groupResults.getMappedResults();
 		return result;
+	}
+
+	
+	public Incident getByOrderNum(long orderNum) {
+		Aggregation agg = newAggregation(match(Criteria.where("incId").is(orderNum)));
+		
+		AggregationResults<Incident> groupResults = mongoTemplate.aggregate(agg, Incident.class, Incident.class);
+		
+		List<Incident> incidents = groupResults.getMappedResults();
+		
+		return incidents.isEmpty() ? null : incidents.get(0);
+	}
+	
+	public Incident getNextRandomIncident() {
+		if (tempIncidentCount == -1) {
+			tempIncidentCount = inDAO.count();
+		}
+		
+		int orderNum = randomGen.nextInt((int) tempIncidentCount);
+		return getByOrderNum(orderNum);
 	}
 
 }
