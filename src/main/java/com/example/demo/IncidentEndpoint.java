@@ -2,8 +2,10 @@ package com.example.demo;
 
 import java.util.List;
 
+
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -21,12 +23,13 @@ public class IncidentEndpoint {
 	@Autowired
 	private IncidentImpl service;
 	
-	@RequestMapping(value = "/ids", method = RequestMethod.GET, headers = "Accept=application/json", produces = "application/json")
-	public List<String> Ids(){
-		List<String> l = inDao.findLala();
+	@RequestMapping(value = "/ids/{id}", method = RequestMethod.GET, headers = "Accept=application/json", produces = "application/json")
+	public List<Incident> Ids(@PathVariable("id") String id){
+		List<Incident> l = inDao.findLala(new ObjectId(id));
+		System.out.println(l.isEmpty() ? "" : l.get(0).getId());
 		System.out.println("l.size= " + l.size());
 		System.out.println(l);
-		return null;
+		return l;
 	}
 	
 	@RequestMapping(value = "/first", method = RequestMethod.GET, headers = "Accept=application/json", produces = "application/json")

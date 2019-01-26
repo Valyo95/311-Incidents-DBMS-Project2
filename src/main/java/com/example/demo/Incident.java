@@ -1,88 +1,86 @@
 package com.example.demo;
 
 import java.io.Serializable;
-import java.util.Date;
 
-import org.bson.types.ObjectId;
+import org.jongo.marshall.jackson.oid.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
-@Document(collection="testo")
+@Document(collection="incidents")
 public class Incident implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@Id
+	@ObjectId @Id
 	private String id;
 
-	@Field("SERVICE REQUEST NUMBER")
+	@Field("srn")
 	private String srn;
 
-	@Field("STATUS")
+	@Field("status")
 	private String status;
 	
-	@Field("TYPE OF SERVICE REQUEST")
+	@Field("serviceType")
 	private String type;
 
-	@Field("STREET ADDRESS")
+	@Field("streetAddress")
 	private String streetAddress;
 
-	@Field( "ZIP")
+	@Field( "zipCode")
 	private String zipCode;
+	
+	@Field( "ssa")
+	private String ssa;
 
-	@Field( "X COORDINATE")
+	@Field( "xCoord")
 	private Double xCoordinate;
 
-	@Field("Y COORDINATE")
+	@Field("yCoord")
 	private Double yCoordinate;
 
-	@Field("Ward")
+	@Field("ward")
 	private Integer ward;
 
-	@Field("Police District")
+	@Field("policeDistrict")
 	private Integer policeDistrict;
 
-	@Field("Community Area")
+	@Field("communityArea")
 	private Integer communityArea;
 
-	@Field( "LATITUDE")
+	@Field( "latitude")
 	private Double latitude;
 
-	@Field( "LONGITUDE")
+	@Field( "longitude")
 	private Double longitude;
 
-	@Field("LOCATION")
+	@Field("location")
 	private String location;
 
-	@Field("CREATION DATE")
+	@Field("creationDate")
 	private String createdAt;
 
-	@Field("COMPLETION DATE")
+	@Field("completionDate")
 	private String completionDate;
 
 	
 	
 	
-	@Field("LICENSE_PLATE")
+	@Field("vehicleLicence")
 	private String licensePlate;
 
-	@Field("MODEL")
+	@Field("vehicleModel")
 	private String model;
 
-	@Field("COLOR")
+	@Field("vehicleColor")
 	private String color;
 
-	@Field("CURRENT_ACTIVITY")
+	@Field("currentActivity")
 	private String currentActivity;
 
-	@Field("MOST_RECENT_ACTION")
+	@Field("mostRecentAction")
 	private String mostRecentAction;
 
-	
-	
-	
-	
-	@Field("DAYS_ABANDONED")
+	@Field("daysReported")
 	private Double daysAbandoned;
 	
 	@Field("BLACK_CARTS_DELIEVRED")
@@ -132,7 +130,7 @@ public class Incident implements Serializable {
 			Double latitude, Double longitude, String location, String createdAt, String completionDate,
 			String licensePlate, String model, String color, String currentActivity, String mostRecentAction,
 			Double daysAbandoned, Long blackCartsDelivered, String typeOfSurface, String located, Double potHoles,
-			Double premisesBaited, Double premisesWithGarbage, Double premisesWithRats, String natureOfViolation) {
+			Double premisesBaited, Double premisesWithGarbage, Double premisesWithRats, String natureOfViolation, String ssa) {
 		super();
 		this.id = id;
 		this.srn = srn;
@@ -165,6 +163,7 @@ public class Incident implements Serializable {
 		this.premisesWithRats = premisesWithRats;
 		this.natureOfViolation = natureOfViolation;
 		this.upvotes = 0;
+		this.ssa = ssa;
 	}
 
 	@Field("upvotes")
@@ -178,17 +177,18 @@ public class Incident implements Serializable {
 		return upvotes;
 	}
 
-
-
-
-
 	public void setUpvotes(int upvotes) {
 		this.upvotes = upvotes;
 	}
 
 
+	public String getSsa() {
+		return ssa;
+	}
 
-
+	public void setSsa(String ssa) {
+		this.ssa = ssa;
+	}
 
 	public Incident() {
 		super();

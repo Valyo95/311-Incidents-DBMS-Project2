@@ -15,7 +15,7 @@ public class Citizen implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	private ObjectId id;
+	private String id;
 
 	@Field("name")
 	private String name;
@@ -29,7 +29,7 @@ public class Citizen implements Serializable {
 	@Field("upvotes")
 	private List<String> upvotes;
 	
-	public Citizen(ObjectId id, String name, String address, String telephone) {
+	public Citizen(String id, String name, String address, String telephone) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -38,11 +38,11 @@ public class Citizen implements Serializable {
 		this.upvotes = new ArrayList<String>();
 	}
 
-	public ObjectId getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(ObjectId id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 

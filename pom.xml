@@ -43,6 +43,17 @@
 		    <artifactId>javafaker</artifactId>
 		    <version>0.16</version>
 		</dependency>
+		
+	    <dependency>
+	        <groupId>org.jongo</groupId>
+	        <artifactId>jongo</artifactId>
+	        <version>1.1</version>
+	    </dependency>
+	    
+	    <dependency>
+    		<groupId>org.mongodb</groupId>
+    		<artifactId>bson</artifactId>
+		</dependency>	    
 
 	</dependencies>
 

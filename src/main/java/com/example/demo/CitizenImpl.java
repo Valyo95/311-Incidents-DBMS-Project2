@@ -24,7 +24,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.github.javafaker.Faker;
-import com.github.javafaker.Number;
 
 @Service
 public class CitizenImpl {
@@ -42,7 +41,7 @@ public class CitizenImpl {
 		List<Citizen> l = new ArrayList<Citizen>();
 		Faker faker = new Faker();
 		for (int i = 0; i < CITIZENS; i++) {
-			Citizen citizen = new Citizen(new ObjectId(new Date(), i), faker.name().fullName(), faker.address().fullAddress(), faker.phoneNumber().phoneNumber());
+			Citizen citizen = new Citizen(new ObjectId(new Date(), i).toString(), faker.name().fullName(), faker.address().fullAddress(), faker.phoneNumber().phoneNumber());
 			l.add(citizen);
 			citizenDAO.save(citizen);
 		}

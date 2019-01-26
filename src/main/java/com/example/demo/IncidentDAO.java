@@ -6,12 +6,15 @@ import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 
-public interface IncidentDAO extends MongoRepository<Incident, ObjectId>{
+public interface IncidentDAO extends MongoRepository<Incident, String>{
 
-	@Query(value="{'_id' : {'$oid' : '5c4c534adcc03ef2249d4c72'}}", fields="{_id: 1}")
-	List<String> findLala();
+	@Query(value="{'_id' : {'$oid' : '5c4b1bd88fdbd23cac3abf76'}}")
+	List<Incident> findLala();
 	
-	@Query("{'_id' : {'$oid' : '5c4b667cdcc03ef2241bf82e'}}, {_id:1}")
+	@Query(value="{'_id' : ?0}}")
+	List<Incident> findLala(ObjectId id);
+	
+	@Query("{'_id' : {'$oid' : '5c4b1bd88fdbd23cac3abf76'}}, {_id:1}")
 	Object findTest();
 	
 	List<Incident> findByCommunityArea(Integer communityArea);
