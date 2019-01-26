@@ -1,5 +1,6 @@
 package com.example.demo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -29,6 +30,17 @@ public class IncidentEndpoint {
 		System.out.println(l.isEmpty() ? "" : l.get(0).getId());
 		System.out.println("l.size= " + l.size());
 		System.out.println(l);
+		return l;
+	}
+	
+	@RequestMapping(value = "/getRandom/{count}", method = RequestMethod.GET, headers = "Accept=application/json", produces = "application/json")
+	public List<Incident> getRandom(@PathVariable("count") long count){
+		List<Incident> l = new ArrayList<Incident>();
+		
+		for (int i=0; i<count; i++) {
+			l.add(service.getNextRandomIncident());
+		}
+		
 		return l;
 	}
 	
