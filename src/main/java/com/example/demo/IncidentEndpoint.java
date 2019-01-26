@@ -20,7 +20,10 @@ public class IncidentEndpoint {
 
 	@Autowired
 	private IncidentImpl service;
-
+	
+	@Autowired
+	private CitizenImpl citizenImpl;
+	
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET, headers = "Accept=application/json", produces = "application/json")
 	public Incident Ids(@PathVariable("id") String id) {
 		return inDao.findById(id).orElse(null);
@@ -40,6 +43,16 @@ public class IncidentEndpoint {
 	@RequestMapping(value = "/first", method = RequestMethod.GET, headers = "Accept=application/json", produces = "application/json")
 	public List<Object> first(@RequestParam("start") String start, @RequestParam("end") String end) {
 		return service.first(start, end);
+	}
+	
+	@RequestMapping(value = "/upvote/{id}", method = RequestMethod.GET, headers = "Accept=application/json", produces = "application/json")
+	public void upvote(@PathVariable("id") String id, @RequestParam("name") String name, @RequestParam("address") String address, @RequestParam("phone") String phone) throws Exception {
+		System.out.println("id" + id);
+		System.out.println("name: " + name);
+		System.out.println("address: " + address);
+		System.out.println("phone: " + phone);
+		
+		service.upvote(id, citizenImpl.create(name, address, phone));
 	}
 
 }

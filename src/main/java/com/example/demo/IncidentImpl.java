@@ -18,6 +18,7 @@ import org.springframework.data.mongodb.core.aggregation.Aggregation;
 import org.springframework.data.mongodb.core.aggregation.AggregationResults;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class IncidentImpl {
@@ -64,6 +65,18 @@ public class IncidentImpl {
 		
 		int orderNum = randomGen.nextInt((int) tempIncidentCount);
 		return getByOrderNum(orderNum);
+	}
+	
+	@Transactional
+	public void upvote(String id, Citizen citizen) throws Exception {
+		Incident i = inDAO.findById(id).orElse(null);
+		if(i == null)
+			throw new Exception("No such incident");
+		if(i.getUpvotes().contains(citizen))
+			throw new Exception("Citizen" + citizen + "already upvoted this incident");
+		
+		i.getUpvotes().add(citizen);
+		inDAO.save(i);
 	}
 
 }

@@ -1,13 +1,14 @@
 package com.example.demo;
 
 import java.io.Serializable;
+import java.util.HashSet;
 
 import org.jongo.marshall.jackson.oid.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
-@Document(collection="testo")
+@Document(collection="test")
 public class Incident implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -165,22 +166,22 @@ public class Incident implements Serializable {
 		this.premisesWithGarbage = premisesWithGarbage;
 		this.premisesWithRats = premisesWithRats;
 		this.natureOfViolation = natureOfViolation;
-		this.upvotes = 0;
+		this.upvotes = new HashSet<Citizen>();
 		this.ssa = ssa;
 	}
 
 	@Field("upvotes")
-	private int upvotes;
+	private HashSet<Citizen> upvotes;
 
 
 
 
 
-	public int getUpvotes() {
+	public HashSet<Citizen> getUpvotes() {
 		return upvotes;
 	}
 
-	public void setUpvotes(int upvotes) {
+	public void setUpvotes(HashSet<Citizen> upvotes) {
 		this.upvotes = upvotes;
 	}
 

@@ -9,6 +9,8 @@ import static org.springframework.data.mongodb.core.aggregation.Aggregation.sort
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
 
@@ -20,6 +22,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.aggregation.Aggregation;
 import org.springframework.data.mongodb.core.aggregation.AggregationResults;
+import org.springframework.data.mongodb.core.aggregation.ArrayOperators.Zip;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -34,59 +37,67 @@ public class CitizenImpl {
 
 	@Autowired
 	IncidentDAO incidentDAO;
-	
+
+	@Autowired
+	IncidentImpl incidentService;
+
 	@Autowired
 	MongoTemplate mongoTemplate;
 
-	private static final int CITIZENS = 500;
+	private static final int CITIZENS = 2000;
+
+	public Citizen create(String name, String address, String phone) {
+		Citizen c = new Citizen(name, address, phone);
+		return c;
+	}
 	
-	@PostConstruct
 	@Transactional
 	public List<Citizen> init() {
-		List<Citizen> l = new ArrayList<Citizen>();
-		/*
-		 * Faker faker = new Faker(); for (int i = 0; i < CITIZENS; i++) { Citizen
-		 * citizen = new Citizen(new ObjectId(new Date(), i).toString(),
-		 * faker.name().fullName(), faker.address().fullAddress(),
-		 * faker.phoneNumber().phoneNumber()); l.add(citizen); citizenDAO.save(citizen);
-		 * }
-		 */		
+		HashSet<String> incidentUpvoteSet = new HashSet<String>();
+		HashMap<String, Integer> citizenUpvotes = new HashMap<String, Integer>();
 		
+		List<Citizen> l = citizenDAO.findAll();
+
+		Faker faker = new Faker();
+		for (int i = 0; i < CITIZENS; i++) {
+			Citizen citizen = new Citizen(faker.name().fullName(),
+					faker.address().fullAddress(), faker.phoneNumber().phoneNumber());
+			l.add(citizen);
+			citizenUpvotes.put(citizen.getName(), 0);
+		}
+
 		long size = incidentDAO.count();
 		long upvotedIncidents = 0;
-		long target = (long) (size/3);
-		System.out.println("size: " + size);
-		System.out.println("target: " + target);
-		
-		Random random = new Random();
+		long target = (long) (size / 3);
+		/*
+		 * System.out.println("size: " + size); System.out.println("target: " + target);
+		 */
 
-		
-		while(upvotedIncidents<=target) {
+		while (upvotedIncidents <= target) {
 			for (Citizen citizen : l) {
-				if(citizen.getUpvotes().size() <= 1000 && random.nextBoolean()) {
-					boolean added = false;
-					while(added == false) {
-						Incident inc = incidentDAO.findByIncId(random.nextInt((int) size)).get(0);
-						if(citizen.getUpvotes().contains(inc.getId()))
-							continue;
+				System.out.println(citizen);
+				
+				if (citizenUpvotes.get(citizen.getName()) <= 1000) {
+					Incident incident = incidentService.getNextRandomIncident();
+					System.out.println(incident);
 
-						inc.setUpvotes(inc.getUpvotes()+1);
-						incidentDAO.save(inc);
-						
-						System.out.println(inc);
-						
-						citizen.getUpvotes().add(inc.getId());
-						citizenDAO.save(citizen);
-
-						System.out.println(citizen);
-
+					if(!incident.getUpvotes().contains(citizen)) {
+						incident.getUpvotes().add(citizen);
+						/*
+						 * System.out.println(incident); System.out.println("upvotedIncidents: " +
+						 * upvotedIncidents);
+						 */
 						upvotedIncidents++;
-						break;
+						incidentDAO.save(incident);
 					}
-				}
+				}	
+				if(upvotedIncidents > target)
+					break;
 			}
 		}
+		System.err.println("Byebye");
 		return l;
+
 	}
 
 }
