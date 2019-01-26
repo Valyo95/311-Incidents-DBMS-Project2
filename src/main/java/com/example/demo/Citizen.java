@@ -46,6 +46,14 @@ public class Citizen implements Serializable {
 		this.id = id;
 	}
 
+	public List<String> getUpvotes() {
+		return upvotes;
+	}
+
+	public void setUpvotes(List<String> upvotes) {
+		this.upvotes = upvotes;
+	}
+
 	public String getName() {
 		return name;
 	}

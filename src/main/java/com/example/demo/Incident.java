@@ -7,12 +7,15 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
-@Document(collection="incidents")
+@Document(collection="testo")
 public class Incident implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@ObjectId @Id
 	private String id;
+	
+	@Field("incId")
+	private long incId;
 
 	@Field("srn")
 	private String srn;
@@ -396,8 +399,17 @@ public class Incident implements Serializable {
 	}
 
 
+	
 
 
+
+	public long getIncId() {
+		return incId;
+	}
+
+	public void setIncId(long incId) {
+		this.incId = incId;
+	}
 
 	public void setLongitude(Double longitude) {
 		this.longitude = longitude;

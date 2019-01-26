@@ -40,11 +40,4 @@ public class IncidentImpl {
 		return result;
 	}
 
-	public List<Incident> second(String start, String end, String type) {
-		System.out.println("start date: " + start);
-		System.out.println("end date: " + end);
-		
-		return inDAO.findByType(type);
-	}
-
 }

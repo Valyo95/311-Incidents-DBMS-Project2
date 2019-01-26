@@ -10,6 +10,7 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 import javax.annotation.PostConstruct;
 
@@ -32,19 +33,60 @@ public class CitizenImpl {
 	CitizenDAO citizenDAO;
 
 	@Autowired
+	IncidentDAO incidentDAO;
+	
+	@Autowired
 	MongoTemplate mongoTemplate;
 
-	private static final int CITIZENS = 100;
+	private static final int CITIZENS = 500;
 	
+	@PostConstruct
 	@Transactional
 	public List<Citizen> init() {
 		List<Citizen> l = new ArrayList<Citizen>();
-		Faker faker = new Faker();
-		for (int i = 0; i < CITIZENS; i++) {
-			Citizen citizen = new Citizen(new ObjectId(new Date(), i).toString(), faker.name().fullName(), faker.address().fullAddress(), faker.phoneNumber().phoneNumber());
-			l.add(citizen);
-			citizenDAO.save(citizen);
+		/*
+		 * Faker faker = new Faker(); for (int i = 0; i < CITIZENS; i++) { Citizen
+		 * citizen = new Citizen(new ObjectId(new Date(), i).toString(),
+		 * faker.name().fullName(), faker.address().fullAddress(),
+		 * faker.phoneNumber().phoneNumber()); l.add(citizen); citizenDAO.save(citizen);
+		 * }
+		 */		
+		
+		long size = incidentDAO.count();
+		long upvotedIncidents = 0;
+		long target = (long) (size/3);
+		System.out.println("size: " + size);
+		System.out.println("target: " + target);
+		
+		Random random = new Random();
+
+		
+		while(upvotedIncidents<=target) {
+			for (Citizen citizen : l) {
+				if(citizen.getUpvotes().size() <= 1000 && random.nextBoolean()) {
+					boolean added = false;
+					while(added == false) {
+						Incident inc = incidentDAO.findByIncId(random.nextInt((int) size)).get(0);
+						if(citizen.getUpvotes().contains(inc.getId()))
+							continue;
+
+						inc.setUpvotes(inc.getUpvotes()+1);
+						incidentDAO.save(inc);
+						
+						System.out.println(inc);
+						
+						citizen.getUpvotes().add(inc.getId());
+						citizenDAO.save(citizen);
+
+						System.out.println(citizen);
+
+						upvotedIncidents++;
+						break;
+					}
+				}
+			}
 		}
 		return l;
 	}
+
 }
