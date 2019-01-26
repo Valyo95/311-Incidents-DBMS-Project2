@@ -1,0 +1,30 @@
+db.incidents.aggregate([
+   {
+      "$match":{
+         "creationDate":{
+            "$gt":"2011-01-01T00:00:00",
+            "$lt":"2011-01-03T00:00:00"
+         }
+      }
+   },
+   {
+      "$group":{
+         "_id": "$serviceType",
+         "total":{
+            "$sum":1
+         }
+      }
+   },
+   {
+      "$project":{
+         "total":1,
+         "_id":0,
+         "serviceType":"$_id"
+      }
+   },
+   {
+      "$sort":{
+         "total":-1
+      }
+   }
+])
