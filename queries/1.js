@@ -2,8 +2,8 @@ db.incidents.aggregate([
    {
       "$match":{
          "creationDate":{
-            "$gt":"2011-01-01T00:00:00",
-            "$lt":"2011-01-03T00:00:00"
+            "$gt": ISODate("2011-01-01T00:00:00"),
+            "$lt": ISODate("2011-01-03T00:00:00")
          }
       }
    },
@@ -17,9 +17,8 @@ db.incidents.aggregate([
    },
    {
       "$project":{
-         "total":1,
-         "_id":0,
-         "serviceType":"$_id"
+         "total": 1,
+         "_id": 1
       }
    },
    {
