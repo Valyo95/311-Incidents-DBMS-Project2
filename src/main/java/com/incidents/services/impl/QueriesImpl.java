@@ -24,6 +24,8 @@ import org.bson.Document;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.geo.Box;
+import org.springframework.data.geo.Point;
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.aggregation.Aggregation;
@@ -245,4 +247,24 @@ public class QueriesImpl {
 		System.out.println("returned: " + result);
 		return result;
 	}
+	
+	@Transactional
+	public List<Object> six(String day, Double x1, Double y1, Double x2, Double y2) throws ParseException {
+		Aggregation agg = newAggregation(
+				match(Criteria.where("location.coordinates").within(new Box(new Point(x1, y1), new Point(x2, y2)))
+						.and("creationDate").is(LocalDateTime.parse(day))),
+				group("serviceType").count().as("totalRequestsPerType"),
+				sort(Sort.Direction.DESC, "totalRequestsPerType"),
+				Aggregation.limit(1),
+				project("_id")
+				
+		);
+		// Convert the aggregation result into a List
+		AggregationResults<Object> groupResults = mongoTemplate.aggregate(agg, Incident.class, Object.class);
+		List<Object> result = groupResults.getMappedResults();
+		System.out.println("returned: " + result);
+		return result;
+	}
+	
+	
 }
