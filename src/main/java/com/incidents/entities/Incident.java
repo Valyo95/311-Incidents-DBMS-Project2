@@ -1,7 +1,9 @@
 package com.incidents.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 
 import org.jongo.marshall.jackson.oid.ObjectId;
 import org.springframework.data.annotation.Id;
@@ -132,6 +134,10 @@ public class Incident implements Serializable {
 
 
 
+	@Field("upvotes")
+	private List<Citizen> upvotes;
+
+
 
 
 	public Incident(String id, String srn, String status, String type, String streetAddress, String zipCode,
@@ -171,23 +177,16 @@ public class Incident implements Serializable {
 		this.premisesWithGarbage = premisesWithGarbage;
 		this.premisesWithRats = premisesWithRats;
 		this.natureOfViolation = natureOfViolation;
-		this.upvotes = new HashSet<Citizen>();
+		this.upvotes = new ArrayList<Citizen>();
 		this.ssa = ssa;
 		this.location2 = location2;
 	}
 
-	@Field("upvotes")
-	private HashSet<Citizen> upvotes;
-
-
-
-
-
-	public HashSet<Citizen> getUpvotes() {
+	public List<Citizen> getUpvotes() {
 		return upvotes;
 	}
 
-	public void setUpvotes(HashSet<Citizen> upvotes) {
+	public void setUpvotes(List<Citizen> upvotes) {
 		this.upvotes = upvotes;
 	}
 	
