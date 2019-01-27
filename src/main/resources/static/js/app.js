@@ -14,6 +14,7 @@ var app = angular.module('app', [
 .config(['$routeProvider', '$locationProvider', '$httpProvider', function ($routeProvider, $locationProvider, $httpProvider) {
 	  $routeProvider.when('/', {templateUrl: 'pages/incidents/main.html', controller: 'IncidentsController'});
       $routeProvider.when('/report', {templateUrl: 'pages/report/main.html', controller: 'ReportController'});
+      $routeProvider.when('/upvote', {templateUrl: 'pages/upvote/main.html', controller: 'UpvoteController'});
       $routeProvider.when('/queries', {templateUrl: 'pages/queries/main.html', controller: 'QueriesController'});
 	  
 	  $routeProvider.otherwise({redirectTo: '/'});

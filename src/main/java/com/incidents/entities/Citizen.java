@@ -24,11 +24,11 @@ public class Citizen implements Serializable {
 	private String phone;
 
 	
-	public Citizen(String name, String address, String telephone) {
+	public Citizen(String name, String address, String phone) {
 		super();
 		this.name = name;
 		this.address = address;
-		this.phone = telephone;
+		this.phone = phone;
 	}
 
 	public String getName() {
@@ -51,8 +51,8 @@ public class Citizen implements Serializable {
 		return phone;
 	}
 
-	public void setTelephone(String telephone) {
-		this.phone = telephone;
+	public void setPhone(String phone) {
+		this.phone = phone;
 	}
 
 	public static long getSerialversionuid() {
@@ -100,7 +100,7 @@ public class Citizen implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Citizen [name=" + name + ", address=" + address + ", telephone=" + phone + "]";
+		return "Citizen [name=" + name + ", address=" + address + ", phone=" + phone + "]";
 	}
 	
 }

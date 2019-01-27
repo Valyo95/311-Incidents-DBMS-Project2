@@ -10,7 +10,7 @@ import com.incidents.entities.Incident;
 public interface CitizenDAO extends MongoRepository<Citizen, String>{
 
 	List<Incident> findByName();
-	List<Incident> findByTelephone();
+	List<Incident> findByPhone();
 	List<Incident> findByAddress();
 	
 }

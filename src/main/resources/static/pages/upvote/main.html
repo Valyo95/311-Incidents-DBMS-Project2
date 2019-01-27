@@ -1,0 +1,54 @@
+<div class="container">
+
+  <h2 style="transition: all .5s;">Upvote</h2>
+
+
+  <form class="form-horizontal" ng-submit="upvote()">
+
+    <div class="row">
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="incidentId">Incident ID:</label>
+      <div class="col-sm-6">          
+        <input type="text" class="form-control" id="incidentId" placeholder="Enter Incident ID" name="incidentId" ng-model="incidentId">
+      </div>
+    </div>
+    </div> 
+
+    <div class="row">
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="name">Name:</label>
+      <div class="col-sm-6">          
+        <input type="text" class="form-control" id="name" placeholder="Enter Name" name="name" ng-model="name">
+      </div>
+    </div>
+    </div> 
+
+    <div class="row">
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="phone">Phone Number:</label>
+      <div class="col-sm-6">          
+        <input type="text" class="form-control" id="phone" placeholder="Enter Phone Number" name="phone" ng-model="phone">
+      </div>
+    </div>
+    </div> 
+
+    <div class="row">
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="address">Address:</label>
+      <div class="col-sm-6">          
+        <input type="text" class="form-control" id="address" placeholder="Enter Address" name="address" ng-model="address">
+      </div>
+    </div>
+    </div>             
+
+    <div class="row">
+    <div class="form-group">        
+      <div class="col-sm-offset-2 col-sm-10">
+      <input type="submit" value="Upvote" class="btn btn-default"/>
+    </div>
+    </div>
+    </div>
+
+  </form>
+
+</div>
