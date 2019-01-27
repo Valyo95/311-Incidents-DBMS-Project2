@@ -6,12 +6,18 @@ import java.util.List;
 
 import org.jongo.marshall.jackson.oid.ObjectId;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.CompoundIndex;
+import org.springframework.data.mongodb.core.index.CompoundIndexes;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
 
 @Document(collection="incidents")
 //@Document(collection="test")
+@CompoundIndexes({
+    @CompoundIndex( name="upvotes.name", def="{'upvotes.name': 1}")
+})
 public class Incident implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -28,12 +34,14 @@ public class Incident implements Serializable {
 	private String status;
 	
 	@Field("serviceType")
+	@Indexed
 	private String serviceType;
 
 	@Field("streetAddress")
 	private String streetAddress;
 
 	@Field( "zipCode")
+	@Indexed
 	private String zipCode;
 	
 	@Field( "ssa")
@@ -46,6 +54,7 @@ public class Incident implements Serializable {
 	private Double yCoordinate;
 
 	@Field("ward")
+	@Indexed
 	private Integer ward;
 
 	@Field("policeDistrict")
@@ -67,6 +76,7 @@ public class Incident implements Serializable {
 	private String location2;
 
 	@Field("creationDate")
+	@Indexed
 	private String creationDate;
 
 	@Field("completionDate")
