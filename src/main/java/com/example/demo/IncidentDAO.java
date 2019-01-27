@@ -12,6 +12,4 @@ public interface IncidentDAO extends MongoRepository<Incident, String>{
 
 	List<Incident> findByIncId(long incId);
 	
-	List<Incident> findByCreatedAtBetweenAndType(String d1, String d2, String type);	
-
 }

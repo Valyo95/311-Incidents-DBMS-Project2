@@ -63,7 +63,7 @@ public class Incident implements Serializable {
 	private String location;
 
 	@Field("creationDate")
-	private String createdAt;
+	private String creationDate;
 
 	@Field("completionDate")
 	private String completionDate;
@@ -152,7 +152,7 @@ public class Incident implements Serializable {
 		this.latitude = latitude;
 		this.longitude = longitude;
 		this.location = location;
-		this.createdAt = createdAt;
+		this.creationDate  = createdAt;
 		this.completionDate = completionDate;
 		this.licensePlate = licensePlate;
 		this.model = model;
@@ -438,16 +438,16 @@ public class Incident implements Serializable {
 
 
 
-	public String getCreatedAt() {
-		return createdAt;
+	public String getCreationDate() {
+		return creationDate ;
 	}
 
 
 
 
 
-	public void setCreatedAt(String createdAt) {
-		this.createdAt = createdAt;
+	public void setCreationDate(String createdAt) {
+		this.creationDate  = createdAt;
 	}
 
 
@@ -708,7 +708,7 @@ public class Incident implements Serializable {
 				+ streetAddress + ", zipCode=" + zipCode + ", xCoordinate=" + xCoordinate + ", yCoordinate="
 				+ yCoordinate + ", ward=" + ward + ", policeDistrict=" + policeDistrict + ", communityArea="
 				+ communityArea + ", latitude=" + latitude + ", longitude=" + longitude + ", location=" + location
-				+ ", createdAt=" + createdAt + ", completionDate=" + completionDate + ", licensePlate=" + licensePlate
+				+ ", createdAt=" + creationDate  + ", completionDate=" + completionDate + ", licensePlate=" + licensePlate
 				+ ", model=" + model + ", color=" + color + ", currentActivity=" + currentActivity
 				+ ", mostRecentAction=" + mostRecentAction + ", daysAbandoned=" + daysAbandoned
 				+ ", blackCartsDelivered=" + blackCartsDelivered + ", typeOfSurface=" + typeOfSurface + ", located="
