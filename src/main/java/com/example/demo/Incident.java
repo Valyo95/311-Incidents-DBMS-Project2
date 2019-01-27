@@ -8,7 +8,9 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
-@Document(collection="test")
+
+@Document(collection="incidents")
+//@Document(collection="test")
 public class Incident implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -25,7 +27,7 @@ public class Incident implements Serializable {
 	private String status;
 	
 	@Field("serviceType")
-	private String type;
+	private String serviceType;
 
 	@Field("streetAddress")
 	private String streetAddress;
@@ -139,7 +141,7 @@ public class Incident implements Serializable {
 		this.id = id;
 		this.srn = srn;
 		this.status = status;
-		this.type = type;
+		this.serviceType = type;
 		this.streetAddress = streetAddress;
 		this.zipCode = zipCode;
 		this.xCoordinate = xCoordinate;
@@ -252,7 +254,7 @@ public class Incident implements Serializable {
 
 
 	public String getType() {
-		return type;
+		return serviceType;
 	}
 
 
@@ -260,7 +262,7 @@ public class Incident implements Serializable {
 
 
 	public void setType(String type) {
-		this.type = type;
+		this.serviceType = type;
 	}
 
 
@@ -702,7 +704,7 @@ public class Incident implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Incident [id=" + id + ", srn=" + srn + ", status=" + status + ", type=" + type + ", streetAddress="
+		return "Incident [id=" + id + ", srn=" + srn + ", status=" + status + ", type=" + serviceType + ", streetAddress="
 				+ streetAddress + ", zipCode=" + zipCode + ", xCoordinate=" + xCoordinate + ", yCoordinate="
 				+ yCoordinate + ", ward=" + ward + ", policeDistrict=" + policeDistrict + ", communityArea="
 				+ communityArea + ", latitude=" + latitude + ", longitude=" + longitude + ", location=" + location
