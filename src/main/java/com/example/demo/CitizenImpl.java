@@ -87,7 +87,11 @@ public class CitizenImpl {
 						 * System.out.println(incident); System.out.println("upvotedIncidents: " +
 						 * upvotedIncidents);
 						 */
-						upvotedIncidents++;
+						if(!incidentUpvoteSet.contains(incident.getId()))
+						{
+							incidentUpvoteSet.add(incident.getId());
+							upvotedIncidents++;
+						}
 						incidentDAO.save(incident);
 					}
 				}	
