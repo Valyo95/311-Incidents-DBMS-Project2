@@ -61,6 +61,9 @@ public class Incident implements Serializable {
 
 	@Field("location")
 	private String location;
+	
+	@Field("location2")
+	private String location2;
 
 	@Field("creationDate")
 	private String creationDate;
@@ -136,7 +139,7 @@ public class Incident implements Serializable {
 			Double latitude, Double longitude, String location, String createdAt, String completionDate,
 			String licensePlate, String model, String color, String currentActivity, String mostRecentAction,
 			Double daysAbandoned, Long blackCartsDelivered, String typeOfSurface, String located, Double potHoles,
-			Double premisesBaited, Double premisesWithGarbage, Double premisesWithRats, String natureOfViolation, String ssa) {
+			Double premisesBaited, Double premisesWithGarbage, Double premisesWithRats, String natureOfViolation, String ssa, String location2) {
 		super();
 		this.id = id;
 		this.srn = srn;
@@ -170,6 +173,7 @@ public class Incident implements Serializable {
 		this.natureOfViolation = natureOfViolation;
 		this.upvotes = new HashSet<Citizen>();
 		this.ssa = ssa;
+		this.location2 = location2;
 	}
 
 	@Field("upvotes")
@@ -186,7 +190,22 @@ public class Incident implements Serializable {
 	public void setUpvotes(HashSet<Citizen> upvotes) {
 		this.upvotes = upvotes;
 	}
+	
+	public String getServiceType() {
+		return serviceType;
+	}
 
+	public void setServiceType(String serviceType) {
+		this.serviceType = serviceType;
+	}
+
+	public String getLocation2() {
+		return location2;
+	}
+
+	public void setLocation2(String location2) {
+		this.location2 = location2;
+	}
 
 	public String getSsa() {
 		return ssa;
@@ -247,22 +266,6 @@ public class Incident implements Serializable {
 
 	public void setStatus(String status) {
 		this.status = status;
-	}
-
-
-
-
-
-	public String getType() {
-		return serviceType;
-	}
-
-
-
-
-
-	public void setType(String type) {
-		this.serviceType = type;
 	}
 
 

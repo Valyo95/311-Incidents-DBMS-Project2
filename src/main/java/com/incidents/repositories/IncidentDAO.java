@@ -12,4 +12,6 @@ public interface IncidentDAO extends MongoRepository<Incident, String>{
 
 	List<Incident> findByIncId(long incId);
 	
+	List<Incident> findBySrn(String srn);
+	
 }

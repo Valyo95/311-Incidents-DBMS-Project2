@@ -2,7 +2,7 @@
 
 appControllers.controller("ReportController", function($scope, $http, $location, $rootScope, $window, notify) {
 		
-	$scope.endpointPath = '';
+	$scope.endpointPath = '/incident';
 	$scope.createPath = '/create';
 
 	$scope.defaultCreateParams = {
@@ -19,7 +19,6 @@ appControllers.controller("ReportController", function($scope, $http, $location,
 		location : ""
 	};
 
-	$scope.abandonedVehiclesEndpoint = "/abandonedVehiclesEndpoint"
 	$scope.abandonedVehiclesParams = {
 		licensePlate : "",
 		model : "",
@@ -30,11 +29,9 @@ appControllers.controller("ReportController", function($scope, $http, $location,
 		ssa : ""
 	};
 
-	$scope.alleyLightsOutEndpoint = "/alleyLightsOutEndpoint";
 	$scope.alleyLightsOutParams = {
 	};	
 
-	$scope.garbageCartsEndpoint = "/garbageCartsEndpoint";
 	$scope.garbageCartsParams = {
 		blackCartsDelivered : "",
 		currentActivity : "",
@@ -42,14 +39,12 @@ appControllers.controller("ReportController", function($scope, $http, $location,
 		ssa : ""
 	};
 
-	$scope.graffitiRemovalEndpoint = "/graffitiRemovalEndpoint";
 	$scope.graffitiRemovalParams = {
 		typeOfSurface : "",
 		located : "",
 		ssa : ""
 	};
 
-	$scope.potHolesEndpoint = "/potHolesEndpoint";
 	$scope.potHolesParams = {
 		currentActivity : "",
 		mostRecentAction : "",
@@ -57,7 +52,6 @@ appControllers.controller("ReportController", function($scope, $http, $location,
 		ssa : ""
 	};
 
-	$scope.rodentBaitingEndpoint = "/rodentBaitingEndpoint";
 	$scope.rodentBaitingParams = {
 		premisesBaited : "",
 		premisesWithGarbage : "",
@@ -66,27 +60,22 @@ appControllers.controller("ReportController", function($scope, $http, $location,
 		mostRecentAction : ""
 	};
 
-	$scope.sanitationCodeComplaintsEndpoint = "/sanitationCodeComplaintsEndpoint";
 	$scope.sanitationCodeComplaintsParams = {
 		natureOfViolation : ""
 	};
 
-	$scope.lightsAllOutEndpoint = "/lightsAllOutEndpoint";
 	$scope.lightsAllOutParams = {
 	};
 
-	$scope.streetLightOneOutEndpoint = "/streetLightOneOutEndpoint";
 	$scope.streetLightOneOutParams = {
 	};
 
-	$scope.treeDebrisEndpoint = "/treeDebrisEndpoint";
 	$scope.treeDebrisParams = {
 		location2 : "",
 		currentActivity : "",
 		mostRecentAction : ""
 	};
 
-	$scope.treeTrimsEndpoint = "/treeTrimsEndpoint";
 	$scope.treeTrimsParams = {
 		location2 : ""
 	};
@@ -105,48 +94,8 @@ appControllers.controller("ReportController", function($scope, $http, $location,
 		"TREE TRIMS"
 	];
 
-	$scope.endpointPath = $scope.abandonedVehiclesEndpoint;
 	$scope.selectedRequestType = $scope.requestTypes[0];
 	$scope.incidentParams = $.extend({}, $scope.defaultCreateParams, $scope.abandonedVehiclesParams);
-
-	$scope.updateEndpointPath = function() {
-
-		switch ($scope.selectedRequestType) {
-			case ($scope.requestTypes[0]):
-				$scope.endpointPath = $scope.abandonedVehiclesEndpoint;
-				break;
-			case ($scope.requestTypes[1]):
-				$scope.endpointPath = $scope.alleyLightsOutEndpoint;
-				break;
-			case ($scope.requestTypes[2]):
-				$scope.endpointPath = $scope.garbageCartsEndpoint;
-				break;
-			case ($scope.requestTypes[3]):
-				$scope.endpointPath = $scope.graffitiRemovalEndpoint;
-				break;
-			case ($scope.requestTypes[4]):
-				$scope.endpointPath = $scope.potHolesEndpoint;
-				break;
-			case ($scope.requestTypes[5]):
-				$scope.endpointPath = $scope.rodentBaitingEndpoint;
-				break;
-			case ($scope.requestTypes[6]):
-				$scope.endpointPath = $scope.sanitationCodeComplaintsEndpoint;
-				break;
-			case ($scope.requestTypes[7]):
-				$scope.endpointPath = $scope.lightsAllOutEndpoint;
-				break;
-			case ($scope.requestTypes[8]):
-				$scope.endpointPath = $scope.streetLightOneOutEndpoint;
-				break;
-			case ($scope.requestTypes[9]):
-				$scope.endpointPath = $scope.treeDebrisEndpoint;
-				break;
-			case ($scope.requestTypes[10]):
-				$scope.endpointPath = $scope.treeTrimsEndpoint;
-				break;
-		}
-	}
 
 	$scope.getIncidentParams = function() {
 
@@ -226,10 +175,6 @@ appControllers.controller("ReportController", function($scope, $http, $location,
 		$scope.treeTrimsParams.location2 = "";	
 	}
 
-	$scope.getIsLoggedIn = function () {
-        return $rootScope.isLoggedIn;
-  	};
-
 	//New incident
 	$scope.reportIncident = function() {
 		//console.log('in createPost');
@@ -244,7 +189,9 @@ appControllers.controller("ReportController", function($scope, $http, $location,
 		.then(
 			function(response) {
 				$scope.resetAllParams();
-				notify({message: "Incident reported!\nService Request Number: " + response.data.incident.srn, duration: 2000});
+				notify({message: "Incident reported!\nService Request Number: " + response.data.srn, duration: 4000});
+				console.log(response.data.srn);
+				console.log(response.data.id);
 			},
 			_error)
 	}

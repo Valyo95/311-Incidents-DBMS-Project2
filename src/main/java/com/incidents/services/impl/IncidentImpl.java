@@ -10,6 +10,7 @@ import static org.springframework.data.mongodb.core.aggregation.Aggregation.skip
 
 import java.util.List;
 import java.util.Random;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -81,6 +82,48 @@ public class IncidentImpl {
 		
 		i.getUpvotes().add(citizen);
 		inDAO.save(i);
+	}
+
+
+	@Transactional
+	public Incident create(String status, String streetAddress, String zipCode, Double xCoordinate, Double yCoordinate,
+			Integer ward, Integer policeDistrict, Integer communityArea, Double latitude, Double longitude,
+			String location, String licensePlate, String model, String color, String currentActivity,
+			String mostRecentAction, Double daysAbandoned, String ssa, Long blackCartsDelivered, String typeOfSurface,
+			String located, Double potHoles, Double premisesBaited, Double premisesWithGarbage, Double premisesWithRats,
+			String natureOfViolation, String location2) {
+		
+		Incident incident = new Incident();
+		incident.setSrn(UUID.randomUUID().toString());
+		incident.setStatus(status);
+		incident.setStreetAddress(streetAddress);
+		incident.setZipCode(zipCode);
+		incident.setxCoordinate(xCoordinate);
+		incident.setyCoordinate(yCoordinate);
+		incident.setWard(ward);
+		incident.setPoliceDistrict(policeDistrict);
+		incident.setCommunityArea(communityArea);
+		incident.setLatitude(latitude);
+		incident.setLongitude(longitude);
+		incident.setLocation(location);
+		incident.setLicensePlate(licensePlate);
+		incident.setModel(model);
+		incident.setColor(color);
+		incident.setCurrentActivity(currentActivity);
+		incident.setMostRecentAction(mostRecentAction);
+		incident.setDaysAbandoned(daysAbandoned);
+		incident.setSsa(ssa);
+		incident.setBlackCartsDelivered(blackCartsDelivered);
+		incident.setTypeOfSurface(typeOfSurface);
+		incident.setLocated(located);
+		incident.setPotHoles(potHoles);
+		incident.setPremisesBaited(premisesBaited);
+		incident.setNatureOfViolation(natureOfViolation);
+		incident.setLocation2(location2);
+		
+		inDAO.save(incident);
+		
+		return incident;
 	}
 
 }
