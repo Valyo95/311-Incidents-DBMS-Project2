@@ -1,7 +1,7 @@
 db.incidents.aggregate([
 	{
 		"$match": {
-		"creationDate" : "Tue Jul 12 03:00:00 EEST 2011"
+		"creationDate" : ISODate("2011-01-03T00:00:00Z")
 		}
 	},
 	{
