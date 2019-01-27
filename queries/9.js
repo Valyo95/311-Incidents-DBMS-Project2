@@ -6,7 +6,7 @@ db.incidents.aggregate([
 	{
 		"$group":{
 			"_id": {
-			    "citizen": "$upvotes.name",
+			    "name": "$upvotes.name",
 			    "ward": "$ward"
 			}
       	}
@@ -15,7 +15,7 @@ db.incidents.aggregate([
 	//Second group created in order to assert ward uniqueness
 	{
 		"$group": {
-			"_id": "$_id.citizen",
+			"_id": "$_id.name",
 			"wardCount": {
 				"$sum": 1
 			}

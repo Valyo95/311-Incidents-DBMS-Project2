@@ -20,15 +20,15 @@ public class Citizen implements Serializable {
 	@Field("address")
 	private String address;
 	
-	@Field("telephone")
-	private String telephone;
+	@Field("phone")
+	private String phone;
 
 	
 	public Citizen(String name, String address, String telephone) {
 		super();
 		this.name = name;
 		this.address = address;
-		this.telephone = telephone;
+		this.phone = telephone;
 	}
 
 	public String getName() {
@@ -47,12 +47,12 @@ public class Citizen implements Serializable {
 		this.address = address;
 	}
 
-	public String getTelephone() {
-		return telephone;
+	public String getPhone() {
+		return phone;
 	}
 
 	public void setTelephone(String telephone) {
-		this.telephone = telephone;
+		this.phone = telephone;
 	}
 
 	public static long getSerialversionuid() {
@@ -67,7 +67,7 @@ public class Citizen implements Serializable {
 		int result = 1;
 		result = prime * result + ((address == null) ? 0 : address.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		result = prime * result + ((telephone == null) ? 0 : telephone.hashCode());
+		result = prime * result + ((phone == null) ? 0 :phone.hashCode());
 		return result;
 	}
 
@@ -90,17 +90,17 @@ public class Citizen implements Serializable {
 				return false;
 		} else if (!name.equals(other.name))
 			return false;
-		if (telephone == null) {
-			if (other.telephone != null)
+		if (phone == null) {
+			if (other.phone != null)
 				return false;
-		} else if (!telephone.equals(other.telephone))
+		} else if (!phone.equals(other.phone))
 			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return "Citizen [name=" + name + ", address=" + address + ", telephone=" + telephone + "]";
+		return "Citizen [name=" + name + ", address=" + address + ", telephone=" + phone + "]";
 	}
 	
 }

@@ -8,6 +8,7 @@ import static org.springframework.data.mongodb.core.aggregation.Aggregation.sort
 import static org.springframework.data.mongodb.core.aggregation.Aggregation.limit;
 import static org.springframework.data.mongodb.core.aggregation.Aggregation.skip;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.UUID;
@@ -79,7 +80,10 @@ public class IncidentImpl {
 			throw new Exception("No such incident");
 		if(i.getUpvotes().contains(citizen))
 			throw new Exception("Citizen" + citizen + "already upvoted this incident");
-		
+
+		if(i.getUpvotes() == null)
+			i.setUpvotes(new ArrayList<Citizen>());
+		inDAO.save(i);
 		i.getUpvotes().add(citizen);
 		inDAO.save(i);
 	}

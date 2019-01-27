@@ -6,8 +6,8 @@ db.incidents.aggregate([
 	{
 		"$group":{
 			"_id": {
-			    "incident": "$_id",
-			    "citizen": "$upvotes.name",
+			    "id": "$_id",
+			    "name": "$upvotes.name",
 			    "phone": "$upvotes.phone"
 			},
 			"samePhoneCnt": {
@@ -26,7 +26,7 @@ db.incidents.aggregate([
 	//Filter per incident (an incident might have more than one samePhoneCnt > 1)
 	{
 		"$group": {
-			"_id": "$_id.incident"
+			"_id": "$_id.id"
 		}
 	},
 	{

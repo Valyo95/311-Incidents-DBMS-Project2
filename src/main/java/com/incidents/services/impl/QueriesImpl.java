@@ -181,15 +181,12 @@ public class QueriesImpl {
 
 	@Transactional
 	public List<Object> eight() throws ParseException {
-		System.out.println("erroroorsoads");
 		Aggregation agg = newAggregation(
 				Aggregation.unwind("upvotes"),
-				project().and("upvotes").size().as("upvotesCount"),
 				group("upvotes.name").count().as("userUpvotes"),
 				sort(Sort.Direction.DESC, "userUpvotes"),
 				Aggregation.limit(50),
-				project("id")
-//
+				project("_id")
 		);
 		// Convert the aggregation result into a List
 		AggregationResults<Object> groupResults = mongoTemplate.aggregate(agg, Incident.class, Object.class);
@@ -198,4 +195,55 @@ public class QueriesImpl {
 		return result;
 	}
 	
+	@Transactional
+	public List<Object> nine() throws ParseException {
+		Aggregation agg = newAggregation(
+				Aggregation.unwind("upvotes"),
+				group("upvotes.name", "ward"),
+				group("_id.name").count().as("wardCount"),
+				sort(Sort.Direction.DESC, "wardCount"),
+				Aggregation.limit(50),
+				project("_id")
+																	 
+		);
+		// Convert the aggregation result into a List
+		AggregationResults<Object> groupResults = mongoTemplate.aggregate(agg, Incident.class, Object.class);
+		List<Object> result = groupResults.getMappedResults();
+		System.out.println("returned: " + result);
+		return result;
+	}
+	
+	@Transactional
+	public List<Object> ten() throws ParseException {
+		Aggregation agg = newAggregation(
+				Aggregation.unwind("upvotes"),
+				group("id", "upvotes.name", "upvotes.phone").count().as("samePhoneCnt"),
+				match(Criteria.where("samePhoneCnt").gt(1)),
+				group("_id.id"),
+				project("_id")/*group("_id.name").count().as("wardCount"),
+				sort(Sort.Direction.DESC, "wardCount"),
+				Aggregation.limit(50),
+				project("_id")*/
+																	 
+		);
+		// Convert the aggregation result into a List
+		AggregationResults<Object> groupResults = mongoTemplate.aggregate(agg, Incident.class, Object.class);
+		List<Object> result = groupResults.getMappedResults();
+		System.out.println("returned: " + result);
+		return result;
+	}
+	
+	@Transactional
+	public List<Object> eleven(String name) throws ParseException {
+		Aggregation agg = newAggregation(
+				Aggregation.unwind("upvotes"),
+				match(Criteria.where("upvotes.name").is(name)),
+				group("ward")										 
+		);
+		// Convert the aggregation result into a List
+		AggregationResults<Object> groupResults = mongoTemplate.aggregate(agg, Incident.class, Object.class);
+		List<Object> result = groupResults.getMappedResults();
+		System.out.println("returned: " + result);
+		return result;
+	}
 }
