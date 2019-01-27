@@ -55,12 +55,10 @@ public class QueriesImpl {
 
 	@Transactional
 	public List<Object> first(String start, String end) throws ParseException {
-		Date startDate = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS\'Z\'").parse(start);
-		Date endDate = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS\'Z\'").parse(end);
 		Aggregation agg = newAggregation(
 				match(Criteria.where("creationDate")
-						.gt(startDate)
-						.lt(endDate)),
+						.gt(LocalDateTime.parse(start))
+						.lt(LocalDateTime.parse(end))),
 				group("serviceType").count().as("total"), project("total").and("serviceType"),
 				sort(Sort.Direction.DESC, "total")
 
