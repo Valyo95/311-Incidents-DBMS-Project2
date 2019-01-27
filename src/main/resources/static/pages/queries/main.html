@@ -1,55 +1,108 @@
 <div class="container">
 
-  <div ng-show="!getIsLoggedIn()" ng-cloak>
-    <h2 style="transition: all .5s;">Total Requests per Request Type<h2>
+  <h2 style="transition: all .5s;">Queries</h2>
+
+  <div class="row">
+  <div class="form-group">
+    <label class="control-label col-sm-2" for="queryNumber">Query Number:</label>
+    <div class="col-sm-6">
+      <select ng-model="queryNumber" ng-options="num for num in queryNumbers">
+      </select>
+    </div>
   </div>
-  
-  <div ng-show="getIsLoggedIn()" ng-cloak>
-  
-    <form class="form-horizontal" ng-submit="search()">
+  </div>  
 
-      <div class="row">
-      <div class="form-group">
-        <label class="control-label col-sm-2" for="startDate">Start date:</label>
+  <form class="form-horizontal" ng-submit="runQuery()">
+
+    <div class="row" ng-show="queryNumber == 1 || queryNumber == 2 || queryNumber == 5">
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="startDate">Start Date:</label>
         <div class="col-sm-6">          
-        <datepicker date-format="yyyy-MM-dd"> 
-          <input type="text" ng-model="searchParams.startDate" class="angular-datepicker-input" required/>
-        </datepicker>
-        </div>
-      </div>
-      </div> 
+        <input type="text" class="form-control" id="startDate" placeholder="Enter Start Date" name="startDate" ng-model="startDate">
+         </div>
+    </div>
+    </div> 
 
-      <div class="row">
-      <div class="form-group">
-        <label class="control-label col-sm-2" for="endDate">End date:</label>
+    <div class="row" ng-show="queryNumber == 1 || queryNumber == 2 || queryNumber == 5">
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="endDate">End Date:</label>
         <div class="col-sm-6">          
-        <datepicker date-format="yyyy-MM-dd"> 
-          <input type="text" ng-model="searchParams.endDate" class="angular-datepicker-input" required/>
-        </datepicker>
-        </div>
-      </div>
-      </div>
+        <input type="text" class="form-control" id="endDate" placeholder="Enter End Date" name="endDate" ng-model="endDate">
+         </div>
+    </div>
+    </div> 
 
-      <div class="row">
-      <div class="form-group">        
-        <div class="col-sm-offset-2 col-sm-10">
-        <input type="submit" value="Search" class="btn btn-default"/>
-      </div>
-      </div>
-      </div>
+    <div class="row" ng-show="queryNumber == 2 || queryNumber == 4">
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="type">Request Type:</label>
+        <div class="col-sm-6">          
+        <input type="text" class="form-control" id="type" placeholder="Enter Request Type" name="type" ng-model="type">
+         </div>
+    </div>
+    </div> 
 
-    </form>
+    <div class="row" ng-show="queryNumber == 3 || queryNumber == 7 || queryNumber == 6">
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="day">Day:</label>
+        <div class="col-sm-6">          
+        <input type="text" class="form-control" id="day" placeholder="Enter Day" name="day" ng-model="day">
+         </div>
+    </div>
+    </div> 
 
+    <div class="row" ng-show="queryNumber == 11">
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="name">Citizen Name:</label>
+        <div class="col-sm-6">          
+        <input type="text" class="form-control" id="name" placeholder="Enter Citizen Name" name="name" ng-model="name">
+         </div>
+    </div>
+    </div> 
 
-    <table ng-show="hasSearched" class="table table-hovered">
-    <tr>
-      <th>Request Type</th>
-      <th>Total</th>
-    </tr>
-    <tr ng-repeat="res in searchResults">
-      <td>{{res[0]}}</td>
-      <td>{{res[1]}}</td>
-    </tr>
-  </table>
+    <div class="row" ng-show="queryNumber == 6">
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="lat1">Latitude 1:</label>
+        <div class="col-sm-6">          
+        <input type="text" class="form-control" id="lat1" placeholder="Enter Latitude 1" name="lat1" ng-model="lat1">
+         </div>
+    </div>
+    </div> 
+
+    <div class="row" ng-show="queryNumber == 6">
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="lon1">Longitude 1:</label>
+        <div class="col-sm-6">          
+        <input type="text" class="form-control" id="lon1" placeholder="Enter Longitude 1" name="lon1" ng-model="lon1">
+         </div>
+    </div>
+    </div> 
+
+    <div class="row" ng-show="queryNumber == 6">
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="lat2">Latitude 2:</label>
+        <div class="col-sm-6">          
+        <input type="text" class="form-control" id="lat2" placeholder="Enter Latitude 2" name="lat2" ng-model="lat2">
+         </div>
+    </div>
+    </div> 
+
+    <div class="row" ng-show="queryNumber == 6">
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="lon2">Longitude 2:</label>
+        <div class="col-sm-6">          
+        <input type="text" class="form-control" id="lon2" placeholder="Enter Longitude 2" name="lon2" ng-model="lon2">
+         </div>
+    </div>
+    </div> 
+
+    <div class="row">
+    <div class="form-group">        
+      <div class="col-sm-offset-2 col-sm-10">
+      <input type="submit" value="Search" class="btn btn-default"/>
+    </div>
+    </div>
+    </div>
+
+  </form>
 
 </div>
