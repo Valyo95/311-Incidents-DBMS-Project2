@@ -47,7 +47,24 @@ public class QueriesEndpoint {
 	}
 	
 	@RequestMapping(value = "/7", method = RequestMethod.GET, headers = "Accept=application/json", produces = "application/json")
-	public List<Object> seventh(@RequestParam("day") String day) throws ParseException{
-		return service.seventh(day);
+	public List<Object> seventh(@RequestParam("day") String day){
+		try {
+			return service.seventh(day);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}	
+	
+	@RequestMapping(value = "/8", method = RequestMethod.GET, headers = "Accept=application/json", produces = "application/json")
+	public List<Object> eight(){
+		try {
+			return service.eight();
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 }

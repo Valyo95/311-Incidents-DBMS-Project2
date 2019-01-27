@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
@@ -44,6 +45,8 @@ import com.incidents.repositories.CitizenDAO;
 import com.incidents.repositories.IncidentDAO;
 import com.mongodb.AggregationOptions;
 import com.mongodb.BasicDBObject;
+import com.mongodb.BasicDBObjectBuilder;
+import com.mongodb.DBObject;
 import com.mongodb.client.model.Accumulators;
 
 @Service
@@ -176,5 +179,23 @@ public class QueriesImpl {
 		return result;
 	}
 
-
+	@Transactional
+	public List<Object> eight() throws ParseException {
+		System.out.println("erroroorsoads");
+		Aggregation agg = newAggregation(
+				Aggregation.unwind("upvotes"),
+				project().and("upvotes").size().as("upvotesCount"),
+				group("upvotes.name").count().as("userUpvotes"),
+				sort(Sort.Direction.DESC, "userUpvotes"),
+				Aggregation.limit(50),
+				project("id")
+//
+		);
+		// Convert the aggregation result into a List
+		AggregationResults<Object> groupResults = mongoTemplate.aggregate(agg, Incident.class, Object.class);
+		List<Object> result = groupResults.getMappedResults();
+		System.out.println("returned: " + result);
+		return result;
+	}
+	
 }
