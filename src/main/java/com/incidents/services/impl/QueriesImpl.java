@@ -163,11 +163,11 @@ public class QueriesImpl {
 		Aggregation agg = newAggregation(
 				match(Criteria.where("creationDate")
 						.is(LocalDateTime.parse(day))),
-				project("id").and("upvotes").size().as("upvotesCount"),
-				sort(Sort.Direction.DESC, "upvotesCount"),
-				Aggregation.limit(50),
-				project("id")
-
+						project().and("upvotes").size().as("upvotesCount")
+//				sort(Sort.Direction.DESC, "upvotesCount"),
+//				Aggregation.limit(50),
+//				project("id")
+//
 		);
 		// Convert the aggregation result into a List
 		AggregationResults<Object> groupResults = mongoTemplate.aggregate(agg, Incident.class, Object.class);
