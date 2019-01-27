@@ -2,6 +2,12 @@ db.incidents.aggregate([
    {
       "$match":{
          "creationDate":{
+         	"$ne": null  
+         },
+         "completionDate":{
+         	"$ne": null  
+         },
+         "creationDate":{
             "$gt": ISODate("2011-01-01T00:00:00"),
             "$lt": ISODate("2011-01-03T00:00:00")
          }
@@ -22,7 +28,7 @@ db.incidents.aggregate([
     		"_id": 1,
     		"averageCompletion": 1,
     		"averageInDays": {
-    		    "$divide": ["$averageCompletion", 8640]
+    		    "$divide": ["$averageCompletion", 8640000]
     		}
     	}   
    }
