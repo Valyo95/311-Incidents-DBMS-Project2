@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.incidents.services.impl;
 
 import static org.springframework.data.mongodb.core.aggregation.Aggregation.group;
 import static org.springframework.data.mongodb.core.aggregation.Aggregation.match;
@@ -21,7 +21,6 @@ import javax.annotation.PostConstruct;
 
 import org.bson.Document;
 import org.bson.types.ObjectId;
-import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoOperations;
@@ -40,6 +39,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.github.javafaker.Faker;
+import com.incidents.entities.Incident;
+import com.incidents.repositories.CitizenDAO;
+import com.incidents.repositories.IncidentDAO;
 import com.mongodb.AggregationOptions;
 import com.mongodb.BasicDBObject;
 import com.mongodb.client.model.Accumulators;

@@ -1,10 +1,10 @@
-package com.example.demo;
+package com.incidents.repositories;
 
 import java.util.List;
 
-import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.repository.MongoRepository;
-import org.springframework.data.mongodb.repository.Query;
+
+import com.incidents.entities.Incident;
 
 public interface IncidentDAO extends MongoRepository<Incident, String>{
 

@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.incidents.services.impl;
 
 import static org.springframework.data.mongodb.core.aggregation.Aggregation.group;
 import static org.springframework.data.mongodb.core.aggregation.Aggregation.match;
@@ -19,6 +19,10 @@ import org.springframework.data.mongodb.core.aggregation.AggregationResults;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.incidents.entities.Citizen;
+import com.incidents.entities.Incident;
+import com.incidents.repositories.IncidentDAO;
 
 @Service
 public class IncidentImpl {

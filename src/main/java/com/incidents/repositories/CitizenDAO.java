@@ -1,9 +1,11 @@
-package com.example.demo;
+package com.incidents.repositories;
 
 import java.util.List;
 
-import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.repository.MongoRepository;
+
+import com.incidents.entities.Citizen;
+import com.incidents.entities.Incident;
 
 public interface CitizenDAO extends MongoRepository<Citizen, String>{
 

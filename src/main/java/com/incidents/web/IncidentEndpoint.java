@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.incidents.web;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,6 +10,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.incidents.entities.Incident;
+import com.incidents.repositories.IncidentDAO;
+import com.incidents.services.impl.CitizenImpl;
+import com.incidents.services.impl.IncidentImpl;
 
 @RestController
 @RequestMapping("incident")
