@@ -32,6 +32,7 @@ import org.springframework.data.mongodb.core.aggregation.Aggregation;
 import org.springframework.data.mongodb.core.aggregation.AggregationExpression;
 import org.springframework.data.mongodb.core.aggregation.AggregationOperation;
 import org.springframework.data.mongodb.core.aggregation.AggregationOperationContext;
+import org.springframework.data.mongodb.core.aggregation.AggregationOptions;
 import org.springframework.data.mongodb.core.aggregation.AggregationResults;
 import org.springframework.data.mongodb.core.aggregation.AggregationSpELExpression;
 import org.springframework.data.mongodb.core.aggregation.ArrayOperators.Zip;
@@ -45,7 +46,6 @@ import com.github.javafaker.Faker;
 import com.incidents.entities.Incident;
 import com.incidents.repositories.CitizenDAO;
 import com.incidents.repositories.IncidentDAO;
-import com.mongodb.AggregationOptions;
 import com.mongodb.BasicDBObject;
 import com.mongodb.BasicDBObjectBuilder;
 import com.mongodb.DBObject;
@@ -113,7 +113,7 @@ public class QueriesImpl {
 						.is(LocalDateTime.parse(day))),
 				group("zipCode", "serviceType").count().as("totalRequestsPerType"),
 				sort(Sort.Direction.ASC, "_id.zipCode").and(Sort.Direction.DESC, "totalRequestsPerType"),
-				group("_id.zipCode").push(new BasicDBObject("serviceType", "_id.serviceType")
+				group("_id.zipCode").push(new BasicDBObject("serviceType", "$_id.serviceType")
 		            ).as("zipRequestTypes"),
 				project("_id").and("zipRequestTypes").slice(3).as("topThreeTypes")
 
@@ -226,7 +226,7 @@ public class QueriesImpl {
 				Aggregation.limit(50),
 				project("_id")*/
 																	 
-		);
+		).withOptions(Aggregation.newAggregationOptions().allowDiskUse(true).build());
 		// Convert the aggregation result into a List
 		AggregationResults<Object> groupResults = mongoTemplate.aggregate(agg, Incident.class, Object.class);
 		List<Object> result = groupResults.getMappedResults();
